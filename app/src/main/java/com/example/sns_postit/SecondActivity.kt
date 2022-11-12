@@ -1,57 +1,67 @@
 package com.example.sns_postit
 
-import android.R.attr.password
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sns_postit.databinding.SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 class SecondActivity : AppCompatActivity() {
-    //private lateinit var mAuth: FirebaseAuth
-    private var mAuth : FirebaseAuth? = null
+    private lateinit var auth: FirebaseAuth
+
+    private var _binding: SignUpBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.sign_up)
-        mAuth = Firebase.auth
+        setContentView(R.layout.activity_main)
+        val binding = SignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        _binding = SignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
 
-        /*private fun createAccount(et_Email: String, password: String) {
+        binding.SignUpButton.setOnClickListener {
+            val email = binding.EditTextEmail.text.toString().trim()
+            val password = binding.EditTextPassword.text.toString().trim()
 
-            if (et_Email.isNotEmpty() && password.isNotEmpty()) {
-                mAuth?.createUserWithEmailAndPassword(et_Email, password)
-                    ?.addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(
-                                this, "계정 생성 완료.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            finish() // 가입창 종료
-                        } else {
-                            Toast.makeText(
-                                this, "계정 생성 실패",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
+            // Validate...
+
+            createUser(email, password)
+        }
+    }
+    private fun createUser(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
             }
-        }
-        */
-        var btn : Button = findViewById<Button>(R.id.sign_up_btn)
+            .addOnFailureListener {
+                Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+            }
+    }
 
-        btn.setOnClickListener() {
-            val intent = Intent (this, MainActivity::class.java)
-            startActivity(intent)
-            //createAccount(et_Email.text.toString(),et_Password.text.toString())
+    private fun updateUI(user: FirebaseUser?) {
+        user?.let {
+            binding.textView.text = "Email: ${user.email}\nUid: ${user.uid}"
+            println("#############11111111###############")
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

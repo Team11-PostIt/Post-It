@@ -22,7 +22,7 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/et_Email"
+            android:id="@+id/EditTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -32,7 +32,7 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/et_Password"
+            android:id="@+id/EditTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -42,7 +42,7 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/sign_up_btn"
+            android:id="@+id/SignUpButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="등록하기"
