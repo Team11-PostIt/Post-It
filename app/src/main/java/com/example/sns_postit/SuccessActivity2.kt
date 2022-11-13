@@ -10,7 +10,7 @@ class SuccessActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.success)
 
-        var btn : Button = findViewById<Button>(R.id.LogOut)  //회원가입 버튼 누르면 회원가입 창 이동
+        var btn : Button = findViewById<Button>(R.id.LogOut)  // 로그아웃 버튼, 로그인 창으로 돌아감
 
         btn.setOnClickListener() {
             val intent = Intent (this, MainActivity::class.java)

@@ -33,6 +33,13 @@ class SecondActivity : AppCompatActivity() {
 
             createUser(email, password)
         }
+
+        var btn : Button = findViewById<Button>(R.id.GoBack)  // 로그인 화면으로 이동
+
+        btn.setOnClickListener() {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun createUser(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)

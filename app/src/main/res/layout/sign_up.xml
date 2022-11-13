@@ -47,5 +47,11 @@
             android:layout_height="wrap_content"
             android:text="등록하기"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/GoBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그인하러가기" />
     </LinearLayout>
 </LinearLayout>
