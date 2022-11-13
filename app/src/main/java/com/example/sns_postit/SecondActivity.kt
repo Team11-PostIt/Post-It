@@ -31,8 +31,6 @@ class SecondActivity : AppCompatActivity() {
             val email = binding.EditTextEmail.text.toString().trim()
             val password = binding.EditTextPassword.text.toString().trim()
 
-            // Validate...
-
             createUser(email, password)
         }
     }
@@ -57,6 +55,10 @@ class SecondActivity : AppCompatActivity() {
         user?.let {
             binding.textView.text = "Email: ${user.email}\nUid: ${user.uid}"
             println("#############11111111###############")
+            binding.SignUpButton.setOnClickListener {
+                val intent = Intent (this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
