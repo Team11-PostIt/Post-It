@@ -80,7 +80,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/reg_button"
+            android:id="@+id/write_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"

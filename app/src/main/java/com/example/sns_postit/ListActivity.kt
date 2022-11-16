@@ -4,8 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ListActivity : AppCompatActivity() {
+    //private lateinit var binding: ActivityFirestoreBinding
+    //private var adapter: MyAdapter? = null
+    private val db: FirebaseFirestore = Firebase.firestore
+    private val itemsCollectionRef = db.collection("items")
+    private var snapshotListener: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +27,9 @@ class ListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        var btn2 : Button = findViewById<Button>(R.id.reg_button)  // 로그아웃 버튼, 로그인 창으로 돌아감
+        var btn2 : Button = findViewById<Button>(R.id.write_button)  // 글쓰기 버튼
 
-        btn.setOnClickListener() {
+        btn2.setOnClickListener() {
             val intent = Intent (this, RegisterActivity::class.java)
             startActivity(intent)
         }

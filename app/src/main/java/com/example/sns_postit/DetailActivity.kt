@@ -11,7 +11,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
 
-        var btn : Button = findViewById<Button>(R.id.reg_button)  // 로그아웃 버튼, 로그인 창으로 돌아감
+        var btn : Button = findViewById<Button>(R.id.write_button)  // 로그아웃 버튼, 로그인 창으로 돌아감
 
         btn.setOnClickListener() {
             val intent = Intent (this, ListActivity::class.java)
