@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     println("############222222222################")
                     //val user = auth.currentUser
                     //updateUI(user)
-                    val intent = Intent (this, SuccessActivity2::class.java)
+                    val intent = Intent (this, ListActivity::class.java)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
