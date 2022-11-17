@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+//리스트 activity_list.xml
 class ListActivity : AppCompatActivity() {
     //private lateinit var binding: ActivityFirestoreBinding
     //private var adapter: MyAdapter? = null

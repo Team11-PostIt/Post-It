@@ -10,7 +10,7 @@ import com.example.sns_postit.databinding.SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-
+//회원가입화면 sign_up.xml
 class SecondActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

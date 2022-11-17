@@ -12,6 +12,7 @@ import com.example.sns_postit.databinding.SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+//첫화면 activity_main.xml
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
