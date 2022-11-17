@@ -37,15 +37,13 @@ class RegisterActivity : AppCompatActivity() {
             col.document(postTitle).set(itemMap) // 문서이름으로 document생성
 
 
-            //3. 접근하기(읽기)
+            //3. 접근하기(읽기) ->ListActivity로
+            /*
             col.addSnapshotListener{ value,error->
                 for(d in value!!.documentChanges){
                     println("${d.type},${d.document.id},${d.document.data["text"]}")
                 }
-            }
-
-
-
+            }*/
         }
     }
 }
