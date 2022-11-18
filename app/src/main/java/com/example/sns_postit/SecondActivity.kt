@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sns_postit.R.id.GoBack
 import com.example.sns_postit.databinding.SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,7 +20,7 @@ class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.sign_up)
         val binding = SignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         _binding = SignUpBinding.inflate(layoutInflater)
@@ -34,7 +35,7 @@ class SecondActivity : AppCompatActivity() {
             createUser(email, password)
         }
 
-        var btn : Button = findViewById<Button>(R.id.GoBack)  // 로그인 화면으로 이동
+        var btn : Button = findViewById<Button>(GoBack)  // 로그인 화면으로 이동
 
         btn.setOnClickListener() {
             val intent = Intent(this, MainActivity::class.java)
