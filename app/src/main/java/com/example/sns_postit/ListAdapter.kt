@@ -14,10 +14,10 @@ class MainListAdapter (val context: Context, val dogList: ArrayList<ListActivity
         val view: View = LayoutInflater.from(context).inflate(R.layout.activity_list_adapter, null)
 
         /* 위에서 생성된 view를 res-layout-main_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
-        val dogPhoto = view.findViewById<ImageView>(R.id.dogPhotoImg)
-        val dogBreed = view.findViewById<TextView>(R.id.dogBreedTv)
-        val dogAge = view.findViewById<TextView>(R.id.dogAgeTv)
-        val dogGender = view.findViewById<TextView>(R.id.dogGenderTv)
+        val dogPhoto = view.findViewById<ImageView>(R.id.dogPhotoImg) //사진
+        val dogBreed = view.findViewById<TextView>(R.id.dogBreedTv)  //게시글제목
+        val dogAge = view.findViewById<TextView>(R.id.dogAgeTv) //게시글 올린 시간
+        val dogGender = view.findViewById<TextView>(R.id.dogGenderTv) //내용
 
         /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. */
         val dog = dogList[position]

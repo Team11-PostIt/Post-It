@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
         val etTitle:EditText = findViewById<EditText>(R.id.title_et)
         val etContent:EditText = findViewById<EditText>(R.id.content_et)
 
+
         btn.setOnClickListener() {
             val intent = Intent (this, ListActivity::class.java)
             startActivity(intent)
@@ -30,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
 
             //2.접근하기(쓰기)
             val postTitle = etTitle.getText().toString()//게시글 작성에서 쓴 게시글이름
+
             val itemMap = hashMapOf(
                 "title" to postTitle, //title필드에 게시글 이름 저장
                 "content" to etContent.getText().toString() //content필드에 게시글 내용 저장

@@ -21,26 +21,52 @@ class ListActivity : AppCompatActivity() {
     class Dog (val breed: String, val gender: String, val age: String, val photo: String)
     //var dogList = arrayListOf<Dog>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
         val listView : ListView = findViewById<ListView>(R.id.listView)
+        val col = db.collection("post") //post컬렉션
+
+        col.orderBy("title").limit(3).get()
+            .addOnSuccessListener { snapshots->
+                val lastRef = snapshots.documents[snapshots.size()-1]
+                //col.orderBy("title").startAfter(lastRef).limit(10).get()
+                for(d in snapshots!!.documentChanges){
+                    var dogList = arrayListOf<Dog>(
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "4", "dog00"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "1", "dog01"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "3", "dog02"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog07"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
+                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06")
+                    )
+
+                    val dogAdapter = MainListAdapter(this, dogList)
+                    listView.adapter = dogAdapter
+                    println("${d.type},${d.document.id},${d.document.data["content"]}")
+                }
+            }
 
 
-        var dogList = arrayListOf<Dog>(
-            Dog("Chow Chow", "Male", "4", "dog00"),
-            Dog("Breed Pomeranian", "Female", "1", "dog01"),
-            Dog("Golden Retriver", "Female", "3", "dog02"),
-            Dog("Yorkshire Terrier", "Male", "5", "dog03"),
-            Dog("Pug", "Male", "4", "dog04"),
-            Dog("Alaskan Malamute", "Male", "7", "dog05"),
-            Dog("Shih Tzu", "Female", "5", "dog06")
-        )
 
-        val dogAdapter = MainListAdapter(this, dogList)
-        listView.adapter = dogAdapter
+        /*
+        col.addSnapshotListener{ value,error->
+            for(d in value!!.documentChanges){
+                var dogList = arrayListOf<Dog>(
+                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "4", "dog00"),
+                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "1", "dog01"),
+                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "3", "dog02"),
+                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06")
+                )
+                val dogAdapter = MainListAdapter(this, dogList)
+                listView.adapter = dogAdapter
+                println("${d.type},${d.document.id},${d.document.data["text"]}")
+            }
+        }*/
 
         var btn : Button = findViewById<Button>(R.id.LogOut_button)  // 로그아웃 버튼, 로그인 창으로 돌아감
 
