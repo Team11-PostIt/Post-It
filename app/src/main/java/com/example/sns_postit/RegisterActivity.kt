@@ -7,22 +7,29 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sns_postit.databinding.ActivityMainBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 //글 작성하기 화면 activity_register.xml
 class RegisterActivity : AppCompatActivity() {
+
+    //private val imageView: ImageView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val db = Firebase.firestore
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val upload_btn : ImageView = findViewById<ImageView>(R.id.image_upload)
+        //val uploadBtn : ImageView = findViewById<ImageView>(R.id.image_upload)
+        val imageView : ImageView = findViewById(R.id.image_upload)
 
-        var btn : Button = findViewById<Button>(R.id.write_button)  // 등록하기 버튼, 작성한 글 등록됨
-        val etTitle:EditText = findViewById<EditText>(R.id.title_et)
-        val etContent:EditText = findViewById<EditText>(R.id.content_et)
+        var btn : Button = findViewById(R.id.write_button)  // 등록하기 버튼, 작성한 글 등록됨
+        val etTitle:EditText = findViewById(R.id.title_et)
+        val etContent:EditText = findViewById(R.id.content_et)
+
+
 
 
         btn.setOnClickListener{
