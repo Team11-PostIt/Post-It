@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/image_upload"
+        android:layout_width="380dp"
+        android:layout_height="296dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_add_photo" />
+
+    <EditText
+        android:id="@+id/title_et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="제목"/>
-
-        <EditText
-            android:id="@+id/title_et"
-            android:padding="16dp"
-            android:background="#eeeeee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="제목을 입력하세요."
-            />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="113dp"
+        android:layout_weight="1"
+        android:background="#eeeeee"
+        android:hint="제목을 입력하세요."
         android:padding="16dp"
-        android:text="내용"/>
+        android:layout_marginTop="10dp"/>
+
 
     <EditText
         android:id="@+id/content_et"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="364dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="#eeeeee"
         android:hint="내용을 입력하세요."
-        />
+        android:padding="16dp" />
 
     <Button
         android:id="@+id/write_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#C62828"
         android:text="등록하기"
         android:textColor="#FFFFFF"
-        android:background="#C62828"/>
-
-
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

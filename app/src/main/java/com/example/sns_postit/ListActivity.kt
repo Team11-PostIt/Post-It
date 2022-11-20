@@ -4,69 +4,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ListView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.sns_postit.databinding.ActivityListBinding
+import com.example.sns_postit.databinding.ItemBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
-//리스트 activity_list.xml
+
 class ListActivity : AppCompatActivity() {
-    //private lateinit var binding: ActivityFirestoreBinding
-    //private var adapter: MyAdapter? = null
-    private val db: FirebaseFirestore = Firebase.firestore
-    private val itemsCollectionRef = db.collection("post")
-    private var snapshotListener: ListenerRegistration? = null
-
-    class Dog (val breed: String, val gender: String, val age: String, val photo: String)
-    //var dogList = arrayListOf<Dog>()
+    private lateinit var binding: ActivityListBinding
+    var firestore : FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        binding = ActivityListBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val listView : ListView = findViewById<ListView>(R.id.listView)
-        val col = db.collection("post") //post컬렉션
+        // 파이어스토어 인스턴스 초기화
+        firestore = FirebaseFirestore.getInstance()
 
-        col.orderBy("title").limit(3).get()
-            .addOnSuccessListener { snapshots->
-                val lastRef = snapshots.documents[snapshots.size()-1]
-                //col.orderBy("title").startAfter(lastRef).limit(10).get()
-                for(d in snapshots!!.documentChanges){
-                    var dogList = arrayListOf<Dog>(
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "4", "dog00"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "1", "dog01"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "3", "dog02"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog07"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06"),
-                        Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06")
-                    )
-
-                    val dogAdapter = MainListAdapter(this, dogList)
-                    listView.adapter = dogAdapter
-                    println("${d.type},${d.document.id},${d.document.data["content"]}")
-                }
-            }
-
-
-
-        /*
-        col.addSnapshotListener{ value,error->
-            for(d in value!!.documentChanges){
-                var dogList = arrayListOf<Dog>(
-                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "4", "dog00"),
-                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "1", "dog01"),
-                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "3", "dog02"),
-                    Dog("${d.document.data["title"]}", "${d.document.data["content"]}", "5", "dog06")
-                )
-                val dogAdapter = MainListAdapter(this, dogList)
-                listView.adapter = dogAdapter
-                println("${d.type},${d.document.id},${d.document.data["text"]}")
-            }
-        }*/
+        binding.recyclerview.adapter = RecyclerViewAdapter()
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
         var btn : Button = findViewById<Button>(R.id.LogOut_button)  // 로그아웃 버튼, 로그인 창으로 돌아감
 
@@ -81,6 +42,47 @@ class ListActivity : AppCompatActivity() {
             val intent = Intent (this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+    inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TodoViewHolder>() {
+        // Person 클래스 ArrayList 생성성
+        var telephoneBook : ArrayList<Person> = arrayListOf()
 
+        init {  // telephoneBook의 문서를 불러온 뒤 Person으로 변환해 ArrayList에 담음
+            firestore?.collection("post")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                // ArrayList 비워줌
+                telephoneBook.clear()
+
+                for (snapshot in querySnapshot!!.documents) {
+                    var item = snapshot.toObject(Person::class.java)
+                    telephoneBook.add(item!!)
+                }
+                notifyDataSetChanged()
+            }
+        }
+        inner class TodoViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+        // xml파일을 inflate하여 ViewHolder를 생성
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item, parent, false)
+            return TodoViewHolder(ItemBinding.bind(view))
+        }
+
+        // onCreateViewHolder에서 만든 view와 실제 데이터를 연결
+        override fun onBindViewHolder(viewHolder: TodoViewHolder, position: Int) {
+            //var viewHolder = (holder as ViewHolder).itemView
+
+            viewHolder.binding.name.text = telephoneBook[position].name
+            viewHolder.binding.content.text = telephoneBook[position].content
+        }
+
+        // 리사이클러뷰의 아이템 총 개수 반환
+        override fun getItemCount(): Int {
+            return telephoneBook.size
+        }
     }
 }
+
+
+
+

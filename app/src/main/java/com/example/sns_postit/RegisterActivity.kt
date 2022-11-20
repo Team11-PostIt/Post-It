@@ -2,8 +2,10 @@ package com.example.sns_postit
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -16,12 +18,14 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        val upload_btn : ImageView = findViewById<ImageView>(R.id.image_upload)
+
         var btn : Button = findViewById<Button>(R.id.write_button)  // 등록하기 버튼, 작성한 글 등록됨
         val etTitle:EditText = findViewById<EditText>(R.id.title_et)
         val etContent:EditText = findViewById<EditText>(R.id.content_et)
 
 
-        btn.setOnClickListener() {
+        btn.setOnClickListener{
             val intent = Intent (this, ListActivity::class.java)
             startActivity(intent)
 
@@ -33,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
             val postTitle = etTitle.getText().toString()//게시글 작성에서 쓴 게시글이름
 
             val itemMap = hashMapOf(
-                "title" to postTitle, //title필드에 게시글 이름 저장
+                "name" to postTitle, //title필드에 게시글 이름 저장
                 "content" to etContent.getText().toString() //content필드에 게시글 내용 저장
             )
             col.document(postTitle).set(itemMap) // 문서이름으로 document생성
