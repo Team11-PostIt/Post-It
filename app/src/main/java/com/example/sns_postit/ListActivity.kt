@@ -1,11 +1,13 @@
 package com.example.sns_postit
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sns_postit.databinding.ActivityListBinding
@@ -47,6 +49,7 @@ class ListActivity : AppCompatActivity() {
         // Person 클래스 ArrayList 생성성
         var telephoneBook : ArrayList<Person> = arrayListOf()
 
+
         init {  // telephoneBook의 문서를 불러온 뒤 Person으로 변환해 ArrayList에 담음
             firestore?.collection("post")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 // ArrayList 비워줌
@@ -59,19 +62,21 @@ class ListActivity : AppCompatActivity() {
                 notifyDataSetChanged()
             }
         }
-        inner class TodoViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
+        inner class TodoViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root){
+
+        }
         // xml파일을 inflate하여 ViewHolder를 생성
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item, parent, false)
             return TodoViewHolder(ItemBinding.bind(view))
+
         }
 
         // onCreateViewHolder에서 만든 view와 실제 데이터를 연결
         override fun onBindViewHolder(viewHolder: TodoViewHolder, position: Int) {
             //var viewHolder = (holder as ViewHolder).itemView
-
             viewHolder.binding.name.text = telephoneBook[position].name
             viewHolder.binding.content.text = telephoneBook[position].content
         }

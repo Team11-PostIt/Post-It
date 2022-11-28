@@ -13,6 +13,7 @@
         android:layout_height="296dp"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:onClick="show_image"
         app:srcCompat="@drawable/ic_add_photo" />
 
     <EditText
